@@ -1,26 +1,51 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import Header from "./Componentss/Header";
+import PlayerList from "./Componentss/PlayersList";
+import axios from "axios";
 
-export default App;
+class App extends React.Component{
+
+  constructor(){
+    super();
+    this.state = {
+      data:[],
+      name:"",
+      country:""
+      
+
+    };
+  }
+
+
+  componentDidMount(){
+    console.log ('working');
+
+    axios.get("http://localhost:5000/api/players")
+    .then (response =>{
+      console.log(response.data);
+      this.setState({
+        data:response.data,
+        name:response.data.name,
+        country:response.data.country
+      });
+    })
+    .catch(error => console.log("no players"));
+  }
+
+  render(){
+    return (
+      <div className="App">
+        <Header />
+        
+        <PlayerList
+          data={this.state.data}
+          name={this.state.name}
+          country={this.state.country}
+        />
+      </div>
+    );
+  }
+}
+ export default App;
