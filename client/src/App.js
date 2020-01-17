@@ -2,10 +2,10 @@ import React from 'react';
 import './App.css';
 
 import Header from "./Componentss/Header";
-import PlayerList from "./Componentss/PlayerList";
+import PlayerList from "./Componentss/PlayersList";
 import axios from "axios";
 
-class App extends Rect.Component{
+class App extends React.Component{
 
   constructor(){
     super();
@@ -38,11 +38,7 @@ class App extends Rect.Component{
     return (
       <div className="App">
         <Header />
-        <SearchForm
-          data={this.state.data}
-          name={this.state.name}
-          country={this.state.country}
-        />
+        
         <PlayerList
           data={this.state.data}
           name={this.state.name}
